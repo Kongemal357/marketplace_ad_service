@@ -38,7 +38,7 @@ class UpdateAd(UpdateAdPort):
                 event_type="ad.updated",
                 payload={
                     "ad_id": ad.id,
-                }
+                },
             )
             await self._uow.commit()
             return ad

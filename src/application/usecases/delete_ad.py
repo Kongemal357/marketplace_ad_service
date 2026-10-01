@@ -24,6 +24,6 @@ class DeleteAd(DeleteAdPort):
                 event_type="ad.deleted",
                 payload={
                     "ad_id": ad.id,
-                }
+                },
             )
             await self._uow.commit()

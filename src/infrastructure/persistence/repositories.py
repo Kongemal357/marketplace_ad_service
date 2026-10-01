@@ -40,9 +40,7 @@ class SQLAlchemyAdRepository(AdRepository):
         self,
         ad_id: int,
     ) -> Ad | None:
-        result = await self._session.execute(
-            select(AdModel).where(AdModel.id == ad_id)
-        )
+        result = await self._session.execute(select(AdModel).where(AdModel.id == ad_id))
         model = result.scalar_one_or_none()
         if model is None:
             return None
@@ -78,7 +76,8 @@ class SQLAlchemyAdRepository(AdRepository):
         ad: Ad,
     ) -> None:
         await self._session.execute(
-            update(AdModel).where(AdModel.id == ad.id)
+            update(AdModel)
+            .where(AdModel.id == ad.id)
             .values(
                 user_id=ad.user_id,
                 title=ad.title,
