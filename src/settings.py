@@ -4,11 +4,12 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
-    postgres_host: str
-    postgres_database_name: str
-    postgres_password: str
-    postgres_port: int
-    postgres_username: str
+    postgres_host: str = "localhost"
+    postgres_port: int = 5434
+    postgres_username: str = "postgres"
+    postgres_password: str = "postgres"
+    postgres_database_name: str = "ads_db"
+
     jwt_secret: str = "change-me"
     jwt_algorithm: str = "HS256"
     kafka_bootstrap_servers: str = "localhost:9092"
