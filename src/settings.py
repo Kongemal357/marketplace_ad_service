@@ -1,8 +1,13 @@
+from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        populate_by_name=True,
+    )
 
     postgres_host: str = "localhost"
     postgres_port: int = 5434
@@ -12,8 +17,14 @@ class Settings(BaseSettings):
 
     jwt_secret: str = "change-me"
     jwt_algorithm: str = "HS256"
-    kafka_bootstrap_servers: str = "localhost:9092"
-    kafka_topic_ads: str = "ads"
+    kafka_bootstrap_servers: str = Field(
+        default="localhost:9092",
+        alias="KAFKA_BROKERS",
+    )
+    kafka_topic_ads: str = Field(
+        default="ads",
+        alias="KAFKA_TOPIC_MARKETPLACE_ADS",
+    )
     auth_service_url: str = "http://localhost:8000"
 
     @property
