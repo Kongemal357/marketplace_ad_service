@@ -88,6 +88,23 @@ jobs:
         with:
           version: 'latest'
 
+      - name: Debug kubeconfig
+        run: |
+          echo "=== File exists ==="
+          ls -la ~/.kube/config
+
+          echo "=== File size ==="
+          wc -c ~/.kube/config
+
+          echo "=== First lines ==="
+          head -5 ~/.kube/config
+
+          echo "=== Current context ==="
+          kubectl config current-context
+
+          echo "=== Auth check ==="
+          kubectl auth whoami
+
       - name: Set up kubeconfig
         run: |
           mkdir -p ~/.kube
