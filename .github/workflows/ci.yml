@@ -88,6 +88,12 @@ jobs:
         with:
           version: 'latest'
 
+      - name: Set up kubeconfig
+        run: |
+          mkdir -p ~/.kube
+          echo "${{ secrets.KUBECONFIG }}" | base64 -d > ~/.kube/config
+          chmod 600 ~/.kube/config
+
       - name: Debug kubeconfig
         run: |
           echo "=== File exists ==="
@@ -104,12 +110,6 @@ jobs:
 
           echo "=== Auth check ==="
           kubectl auth whoami
-
-      - name: Set up kubeconfig
-        run: |
-          mkdir -p ~/.kube
-          echo "${{ secrets.KUBECONFIG }}" | base64 -d > ~/.kube/config
-          chmod 600 ~/.kube/config
 
       - name: Update outbox-relay image
         run: |
